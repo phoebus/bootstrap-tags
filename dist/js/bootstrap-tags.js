@@ -31,6 +31,7 @@
                 this.caseInsensitive || (this.caseInsensitive = false);
                 this.readOnlyEmptyMessage || (this.readOnlyEmptyMessage = "No tags to display...");
                 this.maxNumTags || (this.maxNumTags = -1);
+                this.suggestMissing || (this.suggestMissing = false);
                 this.beforeAddingTag || (this.beforeAddingTag = function(tag) {});
                 this.afterAddingTag || (this.afterAddingTag = function(tag) {});
                 this.beforeDeletingTag || (this.beforeDeletingTag = function(tag) {});
@@ -257,6 +258,18 @@
                             return _this.suggestionList.push(suggestion);
                         }
                     });
+
+                    if (str.length && this.suggestMissing
+                        && this.canAddByExclusion(str)
+                        && this.canAddByRestriction(str)
+
+                    ) {
+                        // check if str already suggested. If not — suggest it
+                        if (this.suggestionList.indexOf(str) == -1) {
+                            this.suggestionList.push(str)
+                        }
+                    }
+
                     return this.suggestionList;
                 };
                 this.makeSuggestions = function(e, overrideLengthCheck, val) {

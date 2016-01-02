@@ -280,7 +280,8 @@
                     _this.$suggestionList.html("");
                     $.each(_this.getSuggestions(val, overrideLengthCheck), function(i, suggestion) {
                         return _this.$suggestionList.append(_this.template("tags_suggestion", {
-                            suggestion: suggestion
+                            suggestion: suggestion,
+                            val: val
                         }));
                     });
                     _this.$(".tags-suggestion").mouseover(_this.selectSuggestedMouseOver);
@@ -617,7 +618,8 @@
             if (options == null) {
                 options = {};
             }
-            return "<li class='tags-suggestion'>" + options.suggestion + "</li>";
+            var s = options.suggestion.replace(new RegExp("^" + options.val, 'i'), '<b>$&</b>');
+            return "<li class='tags-suggestion'>" + s + "</li>";
         };
     }).call(this);
     (function() {

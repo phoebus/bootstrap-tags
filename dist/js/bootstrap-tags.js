@@ -247,6 +247,7 @@
                 };
                 this.getSuggestions = function(str, overrideLengthCheck) {
                     var _this = this;
+                    var oStr = str;
                     this.suggestionList = [];
                     if (this.caseInsensitive) {
                         str = str.toLowerCase();
@@ -259,14 +260,14 @@
                         }
                     });
 
-                    if (str.length && this.suggestMissing
-                        && this.canAddByExclusion(str)
-                        && this.canAddByRestriction(str)
+                    if (oStr.length && this.suggestMissing
+                        && this.canAddByExclusion(oStr)
+                        && this.canAddByRestriction(oStr)
 
                     ) {
                         // check if str already suggested. If not — suggest it
-                        if (this.suggestionList.indexOf(str) == -1) {
-                            this.suggestionList.push(str)
+                        if (this.suggestionList.indexOf(oStr) == -1) {
+                            this.suggestionList.push(oStr)
                         }
                     }
 
